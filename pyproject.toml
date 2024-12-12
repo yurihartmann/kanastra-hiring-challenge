@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "kanastra-hiring-challenge"
+version = "0.1.0"
+description = ""
+authors = ["Yuri Hartmann <yurihartmann@icloud.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+dishka = "^1.2.0"
+fastapi = "^0.101.1"
+uvicorn = "^0.32.1"
+python-multipart = "^0.0.19"
+sqlmodel = "^0.0.22"
+pika = "^1.3.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.8.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
