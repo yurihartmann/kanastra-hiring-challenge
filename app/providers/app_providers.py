@@ -7,7 +7,7 @@ from app.constants import EngineType, QueueReader, QueueWriter
 from app.integrations.bill_pdf_generator.bill_pdf_generator import BillPDFGenerator
 from app.integrations.email_sender.email_sender_abc import EmailSender
 from app.integrations.email_sender.smtp_email_sender import SmtpEmailSender
-from app.queue.RabbitMQQueue import RabbitMQQueue
+from app.queue.rabbitmq_queue import RabbitMQQueue
 from app.repositories.bill_repository import BillRepository
 from app.services.v1.bill.bill_service import BillService
 from app.services.v1.file_processor.file_processor_service import FileProcessorService
