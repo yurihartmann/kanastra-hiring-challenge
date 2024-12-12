@@ -24,7 +24,11 @@ Como é apenas um pequeno projeto oque faria para melhorar
 
 ## 🔄 Como rodar
 
-No Terminal: `docker compose up -d`
+No Terminal: `docker compose up -d postgres rabbitmq`
+
+Espere uns 10 segundos para o postgres e rabbitmq dar start nos serviços
+
+Depois: `docker compose up -d app` para iniciar o projeto
 
 Acesse `localhost:8080/docs` para acessar o swagger e fazer upload do arquivo
 
