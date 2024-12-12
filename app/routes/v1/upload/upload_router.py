@@ -7,10 +7,10 @@ from dishka.integrations.fastapi import DishkaRoute, FromDishka
 
 from app.services.v1.file_processor.file_processor_service import FileProcessorService
 
-weather_router = APIRouter(prefix='/upload', route_class=DishkaRoute)
+upload_router = APIRouter(prefix='/upload', route_class=DishkaRoute)
 
 
-@weather_router.post(
+@upload_router.post(
     path='/',
     status_code=HTTPStatus.OK,
 )

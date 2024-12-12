@@ -18,7 +18,7 @@ class FileProcessorTask:
         self.bill_service = bill_service
         self.queue = queue
 
-    def __message_to_bill(self, line: str) -> Bill:
+    def _message_to_bill(self, line: str) -> Bill:
         try:
             data = line.split(",")
             return Bill(
@@ -45,7 +45,7 @@ class FileProcessorTask:
                     sleep(1)
                     continue
 
-                bill = self.__message_to_bill(message)
+                bill = self._message_to_bill(message)
                 self.bill_service.process_bill(bill)
             except Exception as ex:
                 logger.error(f"Error in process {message=}")

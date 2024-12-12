@@ -1,6 +1,6 @@
-# Hiring Challenge
+# 🧪 Hiring Challenge
 
-## Fluxo do upload
+## ⬆️ Fluxo do upload
 
 - Upload do arquivo
 - Leitura do arquivo e inserção no rabbitMQ
@@ -12,7 +12,7 @@
     - Salva no banco de dados
 
 
-## Proximos passos
+## 📌 Proximos passos
 
 Como é apenas um pequeno projeto oque faria para melhorar
 
@@ -22,11 +22,17 @@ Como é apenas um pequeno projeto oque faria para melhorar
 - O Arquivo seria salvo num bucket
 - A API seria rodada em um container e os workers para processar as linhas em outro container (para ter a possibilidade de escalar)
 
-
-## Como rodar
+## 🔄 Como rodar
 
 No Terminal: `docker compose up -d`
 
 Acesse `localhost:8080/docs` para acessar o swagger e fazer upload do arquivo
 
 Feito o upload, pode acessar os logs do container da aplicação para ver o processamento sendo feito
+
+
+## 📝 Testes
+
+Testes na pasta `/tests`
+
+Foram feitos poucos testes mas somente para demostrar como seria
