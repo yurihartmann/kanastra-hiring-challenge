@@ -1,3 +1,5 @@
+from loguru import logger
+
 from app.integrations.bill_pdf_generator.bill_pdf_generator import BillPDFGenerator
 from app.integrations.email_sender.email_sender_abc import EmailSender
 from app.models.bill import Bill
@@ -43,7 +45,7 @@ class BillService:
 
             bill.processed = True
         except Exception as ex:
-            print(f"Error in __process_line - Error {ex}")
+            logger.error(f"Error in __process_line - Error {ex}")
             bill.processed = False
         finally:
             self.bill_repo.save(bill)

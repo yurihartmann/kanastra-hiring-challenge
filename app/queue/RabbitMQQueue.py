@@ -1,14 +1,16 @@
 import pika
 
+from loguru import logger
+
 from app.queue.queue_abc import QueueABC
 
 
 class RabbitMQQueue(QueueABC):
 
-    def __init__(self, queue_name: str):
+    def __init__(self, queue_name: str, host: str):
         self.queue_name = queue_name
         credentials = pika.PlainCredentials('guest', 'guest')
-        parameters = pika.ConnectionParameters(host='localhost', port=5672, credentials=credentials)
+        parameters = pika.ConnectionParameters(host=host, port=5672, credentials=credentials)
         self.connection = pika.BlockingConnection(parameters)
         self.channel = self.connection.channel()
 
@@ -30,5 +32,5 @@ class RabbitMQQueue(QueueABC):
 
             return body.decode()
         except Exception as e:
-            print(f"RabbitMQQueue error {e}")
+            logger.error(f"RabbitMQQueue error {e}")
             return None

@@ -1,3 +1,6 @@
+import os
+
+from loguru import logger
 from dishka import Provider, Scope, provide
 
 from app.constants import EngineType, QueueReader, QueueWriter
@@ -11,7 +14,7 @@ from app.services.v1.file_processor.file_processor_service import FileProcessorS
 from sqlmodel import create_engine
 
 from app.tasks.file_processor_task import FileProcessorTask
-from sqlalchemy.pool import NullPool
+
 
 
 class ServicesProvider(Provider):
@@ -20,26 +23,26 @@ class ServicesProvider(Provider):
     # Database
     @provide(scope=Scope.APP)
     def engine(self) -> EngineType:
-        return create_engine("postgresql+psycopg2://root:pg_password@localhost/kanastra")
+        return create_engine(os.getenv("DATABASE_URL"))
 
     @provide(scope=Scope.APP)
     def queue_reader(self) -> QueueReader:
         queue_name = "bill_to_process"
         r = RabbitMQQueue(
-            queue_name=queue_name
+            queue_name=queue_name,
+            host=os.getenv("HOST_RABBITMQ")
         )
         r.channel.queue_declare(queue_name)
-        print(f"Channel criado: {queue_name=}")
+        logger.info(f"Channel criado: {queue_name=}")
         return r
 
-    @provide()
+    @provide(scope=Scope.APP)
     def queue_writer(self) -> QueueWriter:
         queue_name = "bill_to_process"
         r = RabbitMQQueue(
-            queue_name=queue_name
+            queue_name=queue_name,
+            host=os.getenv("HOST_RABBITMQ")
         )
-        r.channel.queue_declare(queue_name)
-        print(f"Channel criado: {queue_name=}")
         return r
 
     bill_repo = provide(BillRepository, scope=Scope.APP)
