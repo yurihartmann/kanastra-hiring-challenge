@@ -11,14 +11,15 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: 'rabbitmq'
+    container_name: "rabbitmq"
     ports:
       - 5672:5672
       - 15672:15672
 
   app:
     build: .
-    container_name: 'app'
+    entrypoint: "poetry run uvicorn app.main:app --host 0.0.0.0 --port 8080"
+    container_name: "app"
     environment:
       DATABASE_URL: postgresql+psycopg2://root:pg_password@postgres/kanastra
       HOST_RABBITMQ: rabbitmq
@@ -27,3 +28,16 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+
+  worker:
+    build: .
+    entrypoint: "poetry run python run_worker.py"
+    environment:
+      DATABASE_URL: postgresql+psycopg2://root:pg_password@postgres/kanastra
+      HOST_RABBITMQ: rabbitmq
+    depends_on:
+      - postgres
+      - rabbitmq
+    deploy:
+      mode: replicated
+      replicas: 2

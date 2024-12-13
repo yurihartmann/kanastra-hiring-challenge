@@ -6,6 +6,6 @@ COPY . .
 
 RUN pip install --quiet poetry
 
-RUN poetry install --only=main --no-cache
+RUN poetry config virtualenvs.create false
 
-ENTRYPOINT ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+RUN poetry install --only=main --no-cache

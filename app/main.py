@@ -1,4 +1,3 @@
-import threading
 from http import HTTPStatus
 
 from fastapi import FastAPI
@@ -13,7 +12,6 @@ from app.constants import EngineType
 from app.exceptions.application_exception import ApplicationException
 from app.providers.app_providers import ServicesProvider
 from app.routes.app_router import app_router
-from app.tasks.file_processor_task import FileProcessorTask
 
 app = FastAPI()
 app.include_router(router=app_router)
@@ -26,9 +24,6 @@ setup_dishka(container, app)
 async def startup_event():
     engine = await container.get(EngineType)
     SQLModel.metadata.create_all(engine)
-
-    fps = await container.get(FileProcessorTask)
-    threading.Thread(target=fps.start_consume_lines).start()
 
 
 @app.exception_handler(ApplicationException)
